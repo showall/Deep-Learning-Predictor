@@ -28,11 +28,14 @@ app_color = {"graph_bg": "#082255", "graph_line": "#007ACE"}
 with open(f'{PATH_DIR}/assets/training_result.json', 'r', encoding ='utf8') as json_file:
     training_result = json.load(json_file)
 
-list_of_files_results = glob.glob(f'{PATH_DIR}/results/*.csv') 
+link = os.path.join(PATH_DIR,"results","*.csv")
+print(link)
+#list_of_files_results = glob.glob(f'{PATH_DIR}/results/*.csv') 
+list_of_files_results = glob.glob(link) 
 latest_file = max(list_of_files_results, key=os.path.getctime).split("\\")[-1]
 logging.info(f"{latest_file}")
-
-df = pd.read_csv(f"{PATH_DIR}/results/{latest_file}")
+link2 = os.path.join(PATH_DIR,"results",f"{latest_file}")
+df = pd.read_csv(link2)
 number_of_bets = len(df)
 accurate_prediction = len(df[df["actual_outcome"] == df["bet_home_team"]])
 accuracy = accurate_prediction/number_of_bets*100
