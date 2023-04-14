@@ -16,6 +16,9 @@ from scipy.stats import rayleigh
 import plotly.graph_objects as go
 import pandas as pd
 import glob
+import logging
+
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 # from transform_model import PATH_DIR
 import plotly.express as px 
@@ -27,7 +30,8 @@ with open(f'{PATH_DIR}/assets/training_result.json', 'r', encoding ='utf8') as j
 
 list_of_files_results = glob.glob(f'{PATH_DIR}/results/*.csv') 
 latest_file = max(list_of_files_results, key=os.path.getctime).split("\\")[-1]
-print(latest_file)
+logging.info(f"{latest_file}")
+
 df = pd.read_csv(f"{PATH_DIR}/results/{latest_file}")
 number_of_bets = len(df)
 accurate_prediction = len(df[df["actual_outcome"] == df["bet_home_team"]])
