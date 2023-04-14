@@ -153,7 +153,7 @@ def test():
                     ((1-df_2_bet["bet_home_team"])*(df_2_bet["Ah_02"]-1) + (df_2_bet["bet_home_team"])*(df_2_bet["Ah_01"]-1)) \
                 + (df_2_bet["actual_outcome"] != df_2_bet["bet_home_team"])*-1
 
-    test_data["period"] = f"{last_seven_day.strftime('%Y-%m-%d')} to { dt.datetime.now().strftime('%Y-%m-%d') }"
+    test_data["period"] = f"{last_seven_day.strftime('%Y-%m-%d')}to{ dt.datetime.now().strftime('%Y-%m-%d') }"
     test_data["return_for_the_week_per"] = df_2_bet["Won"].sum()/number_of_bets * 100
     test_data["number_of_bets"] = len(df_2_bet)
     test_data["accuracy"] = accurate_prediction/number_of_bets *100
