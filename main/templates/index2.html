@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Football Betting App Predictor</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='ipl-favicon.ico') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+        <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    
+
+ <!-- #       url("https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1305&q=80");         -->
+    <style>
+body {
+  background-image:  url('../static/image_1.jpg');
+  background-position: 100%;
+  background-size: cover;
+}
+</style>
+
+
+    </head>
+
+    <body>
+
+        <!-- Website Title -->
+    	<div class="container">
+            <h2 class='container-heading'style="text-align: center;"><span class='heading_first' ><b style="color: rgb(240, 24, 150); background-color: rgb(216, 211, 218); text-align: center;">Football/Soccer Betting Predictor</b> </span></h2>
+            <div class='description'>
+                <p><h3>A Machine Learning App</h3></p>
+                <div class="button-area">
+                  <row>
+                  <form action="./training/">
+                    <button type="submit" class="link-button">See Model Results</button>
+                  </form>
+                  <form action="my-link">
+                    <button type="submit" class="link-button">Refresh Recommendations</button>
+                </form>
+              </row>
+                </div>
+    		</div>
+    	</div>
+          
+        <!-- Prediction Area -->
+        <div class="prediction-area">
+
+            <!-- IPL Banner - 1 -->
+            <div class='ipl-banner-unified'>
+
+                <div class="slider-frame">
+                    <div class="slide-images-left">
+
+                        <!-- Image-1 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='1.png') }}" alt="pic1">
+                        </div>
+                        <!-- Image-2 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='2.png') }}" alt="pic2">
+                        </div>
+                        <!-- Image-3 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='3.png') }}" alt="pic3">
+                        </div>
+                        <!-- Image-4 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='4.png') }}" alt="pic4">
+                        </div>
+                        <!-- Image-5 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='5.png') }}" alt="pic5">
+                        </div>
+                        <!-- Image-6 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='6.png') }}" alt="pic6">
+                        </div>
+                        <!-- Image-7 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='7.png') }}" alt="pic7">
+                        </div>
+                        <!-- Image-8 -->
+                        <div class="image-container">
+                            <img class="image-width" src="{{ url_for('static', filename='8.png') }}" alt="pic8">
+                        </div>
+                        <!-- Image-9 -->
+                        <div class="image-container">
+                          <img class="image-width" src="{{ url_for('static', filename='9.png') }}" alt="pic9">
+                      </div>
+                        <!-- Image-10 -->
+                        <div class="image-container">
+                          <img class="image-width" src="{{ url_for('static', filename='10.png') }}" alt="pic10">
+                      </div>
+
+                    </div>
+                </div>
+            </div>
+			<!-- Result -->
+			<div class="results">
+				<!-- <p class='result-p'>The final predicted score (range): {{ lower_limit }} to {{ upper_limit }}</p> -->
+
+            <!-- IPL Banner - 2 -->
+        </div>
+    </div>
+
+
+<!-- 
+
+        <div class="recemmendation-area" style="background-color: cornflowerblue;">
+        <h2 style="text-indent: 40%; padding-top: 10px;">Recommendations</h2>
+          <div id="box3">
+
+            <div class="boxes" id="box4">
+                <article>
+                Box 4
+             </article>
+            </div>
+            <div class="boxes">
+                <article>
+                    Box 4
+                 </article>
+            </div>
+            <div class="boxes" id="box8">
+                <article>
+                    {{ table|safe }}
+                 </article>
+
+            </div>
+            </div>
+        </div>
+ 
+
+ -->
+        <div class="recemmendation-area" style="background-color: cornflowerblue;">
+        <h2 style="text-indent: 40%; padding-top: 10px;;">Recommendations</h2>
+        <div class="support-grid"></div>
+        {% if data|length == 0 %}
+        <h3 style="padding-top: 10px; color: red">No recommendations available at the moment. Please try again later.</h3>
+        {% else %}
+        <div class="band">
+            {% for i in data.values() %}
+          <div class= "item-{{loop.index}}" id=" {{ i.get("Match") }} ">
+                <a href=# class="card">
+                  <div class="thumb" style="background-image: url( https://www.insidesport.in/wp-content/uploads/2021/07/English-Banner.jpg);"></div>
+                  <article>
+                    <h1>{{i.get("Match")}}</h1>
+                    <p>{{i.get("Start Time")}}
+                    {{i.get("League")}} </p>
+                    <p>HOME {{i.get("Ah_01_Hcap")}} : {{i.get("Ah_01")}} / AWAY {{i.get("Ah_02_Hcap")}} : {{i.get("Ah_02")}}  </p>
+                    {% if i.get("bet_home_team") == 0 %}
+                    <span>Bet on Home Team: NO ({{i.get("win_confidence")}}%)</span>
+                    {% else %}
+                    <span>Bet on Home Team: YES ({{i.get("win_confidence")}}%)</span>
+                    {% endif %}
+                  </article>
+                </a>
+          </div>          {% endfor %}
+
+
+          <!-- <div class="item-2">
+                <a href="https://webdesign.tutsplus.com/articles/how-to-conduct-remote-usability-testing--cms-27045" class="card">
+                  <div class="thumb" style="background-image: url( https://www.insidesport.in/wp-content/uploads/2021/07/English-Banner.jpg);"></div>
+                  <article>
+                    <h1>How to Conduct Remote Usability Testing</h1>
+                    <span>Harry Brignull</span>
+                  </article>
+                </a>
+          </div>
+          <div class="item-3">
+            <a href="https://design.tutsplus.com/articles/envato-tuts-community-challenge-created-by-you-july-edition--cms-26724" class="card">
+              <div class="thumb" style="background-image: url( https://www.insidesport.in/wp-content/uploads/2021/07/English-Banner.jpg);"></div>
+              <article>
+                <h1>Created by You, July Edition</h1>
+                <p>Welcome to our monthly feature of fantastic tutorial results created by you, the Envato Tuts+ community! </p>
+                <span>Melody Nieves</span>
+              </article>
+            </a>
+          </div>
+          <div class="item-4">
+                <a href="https://webdesign.tutsplus.com/tutorials/how-to-code-a-scrolling-alien-lander-website--cms-26826" class="card">
+                  <div class="thumb" style="background-image: url( https://www.insidesport.in/wp-content/uploads/2021/07/English-Banner.jpg);"></div>
+                  <article>
+                    <h1>How to Code a Scrolling “Alien Lander” Website</h1>
+                    <p>We’ll be putting thinuch down.</p>
+                    <span>Kezz Bracey</span>
+                  </article>
+                </a>
+          </div>
+          <div class="item-5">
+                <a href="https://design.tutsplus.com/tutorials/stranger-things-inspired-text-effect--cms-27139" class="card">
+                  <div class="thumb" style="background-image: url( https://www.insidesport.in/wp-content/uploads/2021/07/English-Banner.jpg);"></div>
+                  <article>
+                    <h1>How to Create a “Stranger Things” Text Effect in Adobe Photoshop</h1>
+                    <span>Rose</span>
+                  </article>
+                </a>
+          </div>
+          <div class="item-6">
+            <a href="https://photography.tutsplus.com/articles/5-inspirational-business-portraits-and-how-to-make-your-own--cms-27338" class="card">
+              <div class="thumb" style="background-image: url( https://www.insidesport.in/wp-content/uploads/2021/07/English-Banner.jpg);"></div>
+              <article>
+                <h1>5 Inspirational Business Portraits and How to Make Your Own</h1>
+                
+                <span>Marie Gardiner</span>
+              </article>
+            </a>
+          </div>
+          <div class="item-7">
+            <a href="https://webdesign.tutsplus.com/articles/notes-from-behind-the-firewall-the-state-of-web-design-in-china--cms-22281" class="card">
+              <div class="thumb" style="background-image: url( https://www.insidesport.in/wp-content/uploads/2021/07/English-Banner.jpg);"></div>
+              <article>
+                <h1>Notes From Behind the Firewall: The State of Web Design in China</h1>
+                <span>Kendra Schaefer</span>
+              </article>
+            </a>
+          </div>
+        </div> -->
+        {% endif %}
+        </div>
+ 
+
+
+
+
+
+        <!-- Footer -->
+       <div class='footer'>
+           <div class="contact">
+               <a target="_blank" href="https://github.com/showall/Deep-Learning-Predictor"><i class="fab fa-github fa-lg contact-icon"></i></a>
+               <!-- <a target="_blank" href="https://paradessence.wixsite.com/gerardsho"><i class="fab fa-linkedin fa-lg contact-icon"></i></a> -->
+           </div>
+           <p class='footer-description'>Copyrighted @2023</p>
+       </div>
+
+    </body>
+</html>
